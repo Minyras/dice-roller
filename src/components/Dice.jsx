@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import one from "../assets/one.png";
 import two from "../assets/two.png";
 import three from "../assets/three.png";
@@ -18,10 +18,30 @@ const Dice = () => {
     if (dice === 5) return five;
     if (dice === 6) return six;
   };
-  const handleDiceRoller = () => {
-    setDice1(Math.floor(Math.random() * 6) + 1);
-    setDice2(Math.floor(Math.random() * 6) + 1);
+  const handleDiceRoller = (dice) => {
+    if (dice === dice1) {
+      setDice1(Math.floor(Math.random() * 6) + 1);
+    }
+    if (dice === dice2) {
+      setDice2(Math.floor(Math.random() * 6) + 1);
+    } else {
+      setDice1(Math.floor(Math.random() * 6) + 1);
+      setDice2(Math.floor(Math.random() * 6) + 1);
+    }
   };
+  const diceDiv = document.querySelector(".dice");
+  const handleClickOutside = (event) => {
+    if (!diceDiv.contains(event.target)) {
+      handleDiceRoller();
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      window.removeEventListener("mousedown", handleClickOutside);
+    };
+  });
+
   console.log(dice1, dice2);
   return (
     <div className="dice">
@@ -29,13 +49,19 @@ const Dice = () => {
         className="dice1"
         src={getDiceImage(dice1)}
         alt="1"
-        onClick={handleDiceRoller}
+        value={dice1}
+        onClick={() => {
+          handleDiceRoller(dice1);
+        }}
       />
       <img
         className="dice2"
         src={getDiceImage(dice2)}
         alt="2"
-        onClick={handleDiceRoller}
+        value={dice2}
+        onClick={() => {
+          handleDiceRoller(dice2);
+        }}
       />
     </div>
   );

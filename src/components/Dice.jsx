@@ -48,13 +48,13 @@ const Dice = () => {
       <img
         className="dice1"
         src={getDiceImage(dice1)}
-        alt={`Dice 1: ${dice1}`}
+        alt="dice1"
         onClick={() => handleDiceRoller(dice1)}
       />
       <img
         className="dice2"
         src={getDiceImage(dice2)}
-        alt={`Dice 2: ${dice2}`}
+        alt="dice2"
         onClick={() => handleDiceRoller(dice2)}
       />
     </div>
